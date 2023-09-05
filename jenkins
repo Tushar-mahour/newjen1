@@ -1,0 +1,58 @@
+pipeline {
+    agent any
+    environment {
+        name = 'ankit'
+    }
+    parameters {
+        string(name: 'person', defaultValue: 'tushar mahour', description: "enter name" )
+        booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Toggle this value')
+        choice(name: 'CHOICE', choices: ['One', 'Two', 'Three'], description: 'Pick something')
+    }
+    stages {
+        stage('run command') {
+            steps {
+                sh '''ls
+                pwd
+                date
+                '''
+            }
+        }
+        stage('enviorment var') {
+            steps {
+                echo "Toggle: ${params.TOGGLE}"
+                echo "${ankit}"
+                sh 'echo "${name}"'
+                sh 'echo "${person}"'
+                echo "Choice: ${params.CHOICE}"
+            }
+        }
+        stage('continue ?') {
+            input {
+                message "should we continue?"
+                ok "yes we should"
+            }
+            steps {
+                echo "tuhsar shoudld we ??"
+            }
+        }
+        stage('deploy') {
+            steps {
+                echo 'deploy on prod' 
+            }
+        }
+    }
+    post { 
+        always { 
+            echo 'I will always say Hello again!'
+        }
+        failure{ 
+            echo 'when any of pipeline is going fail !'
+        }
+        success{ 
+            echo 'when complete ppipeline compiled '
+        }
+    }
+    
+}
+
+

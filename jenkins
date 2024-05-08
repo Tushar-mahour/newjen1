@@ -19,11 +19,9 @@ pipeline {
         }
         stage('enviorment var') {
             steps {
-                echo "Toggle: ${params.TOGGLE}"
-                echo "${ankit}"
                 sh 'echo "${name}"'
                 sh 'echo "${person}"'
-                echo "Choice: ${params.CHOICE}"
+                echo "Choice: ${CHOICE}"
             }
         }
         stage('continue ?') {
